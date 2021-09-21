@@ -61,7 +61,7 @@ public class DatabaseService {
         alunos.add(aluno);
 
         // Print which student
-        System.out.println(rs.getInt("ID") + "\t" + aluno.getNome() + "\t" + aluno.getCpf());
+        System.out.println(rs.getInt("ID") + ") Nome: " + aluno.getNome() + "\nCPF: " + aluno.getCpf() + "\n");
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -85,7 +85,7 @@ public class DatabaseService {
         professores.add(professor);
 
         // Print which student
-        System.out.println(rs.getInt("ID") + "\t" + professor.getNome());
+        System.out.println(rs.getInt("ID") + ") Nome: " + professor.getNome() + "\n");
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -110,7 +110,8 @@ public class DatabaseService {
         exercicios.add(exercicio);
 
         // Print which student
-        System.out.println(rs.getInt("ID") + "\t" + exercicio.getNome() + "\t" + exercicio.getSeries());
+        System.out
+            .println(rs.getInt("ID") + ") Nome: " + exercicio.getNome() + "\nSeries:" + exercicio.getSeries() + "\n");
       }
     } catch (Exception e) {
       System.out.println(e.getMessage());

@@ -60,7 +60,7 @@ public class DatabaseService {
 
         alunos.add(aluno);
 
-        // Print which student
+        // Show members
         System.out.println(rs.getInt("ID") + ") Nome: " + aluno.getNome() + "\nCPF: " + aluno.getCpf() + "\n");
       }
     } catch (Exception e) {
@@ -84,7 +84,7 @@ public class DatabaseService {
 
         professores.add(professor);
 
-        // Print which student
+        // Shows teacher
         System.out.println(rs.getInt("ID") + ") Nome: " + professor.getNome() + "\n");
       }
     } catch (Exception e) {
@@ -109,7 +109,7 @@ public class DatabaseService {
 
         exercicios.add(exercicio);
 
-        // Print which student
+        // Shows exercises
         System.out
             .println(rs.getInt("ID") + ") Nome: " + exercicio.getNome() + "\nSeries:" + exercicio.getSeries() + "\n");
       }
@@ -120,6 +120,9 @@ public class DatabaseService {
     return (exercicios);
   }
 
+  //TODO: Reload data from the database to the array.
+  public void recarregaDados() {}
+
   public void inserirAluno(String nome, String cpf) {
     String sql = "INSERT INTO ALUNO(NOME,CPF) VALUES(?,?)";
 
@@ -127,7 +130,7 @@ public class DatabaseService {
       pstmt.setString(1, nome);
       pstmt.setString(2, cpf);
       pstmt.executeUpdate();
-      System.out.println("[*] Success to save the student.");
+      System.out.println("\n[*] Success to save the member.\n");
       this.disconnect(conn);
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -141,7 +144,7 @@ public class DatabaseService {
       pstmt.setString(1, nome);
       pstmt.executeUpdate();
 
-      System.out.println("[*] Success to save the teacher.");
+      System.out.println("\n[*] Success to save the teacher.\n");
 
       this.disconnect(conn);
     } catch (SQLException e) {
@@ -157,7 +160,7 @@ public class DatabaseService {
       pstmt.setInt(2, series);
       pstmt.executeUpdate();
 
-      System.out.println("[*] Success to save the exercise.");
+      System.out.println("\n[*] Success to save the exercise.\n");
 
       this.disconnect(conn);
 

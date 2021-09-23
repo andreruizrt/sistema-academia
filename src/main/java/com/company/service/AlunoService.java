@@ -1,6 +1,8 @@
 package com.company.service;
 
 import com.company.domain.Aluno;
+import com.company.repository.AlunoRepository;
+import com.company.repository.DatabaseRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +13,8 @@ public class AlunoService {
 
     public Aluno cadastraAluno() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        DatabaseService databaseService = new DatabaseService();
+        AlunoRepository alunoRepository = new AlunoRepository();
+
         Scanner sc = new Scanner(System.in);
 
         Aluno aluno = new Aluno();
@@ -22,11 +25,8 @@ public class AlunoService {
         System.out.print("Informe o cpf do aluno: ");
         aluno.setCpf(in.readLine());
 
-        databaseService.inserirAluno(aluno.getNome(),
-         aluno.getCpf());
+        alunoRepository.inserirAluno(aluno);
 
         return aluno;
     }
-
-    //TODO: Add print members 
 }

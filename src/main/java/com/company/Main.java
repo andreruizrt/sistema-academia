@@ -3,8 +3,12 @@ package com.company;
 import com.company.domain.Aluno;
 import com.company.domain.Exercicio;
 import com.company.domain.Professor;
+
+import com.company.repository.AlunoRepository;
+import com.company.repository.ExercicioRepository;
+import com.company.repository.ProfessorRepository;
+
 import com.company.service.AlunoService;
-import com.company.service.DatabaseService;
 import com.company.service.ExercicioService;
 import com.company.service.ProfessorService;
 
@@ -17,11 +21,14 @@ public class Main {
     public static void main(String[] args) throws IOException {
         
         // Database setup
-        DatabaseService databaseService = new DatabaseService();
-        
-        List<Aluno> alunos = databaseService.carregaAlunos();
-        List<Professor> professores = databaseService.carregaProfessores();
-        List<Exercicio> exercicios = databaseService.carregaExercicios();
+        AlunoRepository alunoRepository = new AlunoRepository();
+        ProfessorRepository professorRepository = new ProfessorRepository();
+        ExercicioRepository exercicioRepository = new ExercicioRepository();
+
+        // Loading data from the database
+        List<Aluno> alunos = alunoRepository.carregaAlunos();
+        List<Professor> professores = professorRepository.carregaProfessores();
+        List<Exercicio> exercicios = exercicioRepository.carregaExercicios();
         
         Scanner sc = new Scanner(System.in);
 

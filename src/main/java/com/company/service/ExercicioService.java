@@ -1,6 +1,8 @@
 package com.company.service;
 
 import com.company.domain.Exercicio;
+import com.company.repository.DatabaseRepository;
+import com.company.repository.ExercicioRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +13,7 @@ public class ExercicioService {
 
     public Exercicio cadastraExercicio() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        DatabaseService databaseService = new DatabaseService();
+        ExercicioRepository exercicioRepository = new ExercicioRepository();
         Scanner sc = new Scanner(System.in);
 
         Exercicio exercicio = new Exercicio();
@@ -22,11 +24,8 @@ public class ExercicioService {
         System.out.print("Digite a quantidade de séries: ");
         exercicio.setSeries(sc.nextInt());
 
-        databaseService.inserirExercicio(exercicio.getNome(),
-            exercicio.getSeries());
-
+        exercicioRepository.inserirExercicio(exercicio);
 
         return exercicio;
     }
-
 }

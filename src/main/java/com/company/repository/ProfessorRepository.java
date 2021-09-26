@@ -12,7 +12,7 @@ public class ProfessorRepository {
 
     public List<Professor> carregaProfessores() {
         List<Professor> professores = new ArrayList<Professor>();
-        String sql = "SELECT ID, NOME FROM PROFESSOR";
+        String sql = "SELECT IDPROFESSOR, NOMEPROFESSOR FROM PROFESSOR_TR01";
 
         try (Connection conn = dbRepository.connect();
              Statement stmt = conn.createStatement();
@@ -20,32 +20,94 @@ public class ProfessorRepository {
 
             while (rs.next()) {
                 Professor professor = new Professor();
-                professor.setId(rs.getInt("ID"));
-                professor.setNome(rs.getString("NOME"));
+                professor.setId(rs.getInt("IDPROFESSOR"));
+                professor.setNome(rs.getString("NOMEPROFESSOR"));
 
                 professores.add(professor);
 
-                // Print which student
-//                System.out.println(rs.getInt("ID") + "\t" + professor.getNome());
+                // Shows teacher
+//                System.out.println(rs.getInt("IDPROFESSOR") + ") Nome: " + professor.getNome() + "\n");
             }
-        } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
         return (professores);
     }
 
-    public void inserirProfessor(Professor professor) {
-        String sql = "INSERT INTO PROFESSOR(NOME) VALUES(?)";
+    public void insereProfessor(Professor professor) {
+
+        String sql = "INSERT INTO PROFESSOR_TR01(NOMEPROFESSOR) VALUES (?)";
 
         try (Connection conn = dbRepository.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, professor.getNome());
             pstmt.executeUpdate();
 
-            System.out.println("[*] Success to save the teacher.");
-
+            System.out.println("\n[*] Success saving the teacher.\n");
             dbRepository.disconnect(conn);
+
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Professor findProfessorById(Integer id) {
+        Professor professor = new Professor();
+        String sql = "SELECT IDPROFESSOR, NOMEPROFESSOR FROM PROFESSOR_TR01";
+
+        try (Connection conn = dbRepository.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                professor.setId(rs.getInt("IDPROFESSOR"));
+
+                if(professor.getId() == id) {
+                    professor.setNome(rs.getString("NOMEPROFESSOR"));
+                    return professor;
+                }
+
+//                 Shows teacher
+                System.out.println(rs.getInt("IDPROFESSOR") + ") Nome: " + professor.getNome() + "\n");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        return null;
+    }
+
+    public void updateProfessor(Professor professor) throws SQLException {
+
+        PreparedStatement pstmt = null;
+        DatabaseRepository dbRepository = new DatabaseRepository();
+        Connection conn = dbRepository.connect();
+
+        String sql = "UPDATE PROFESSOR_TR01 SET NOMEPROFESSOR = ? WHERE IDPROFESSOR = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, professor.getNome());
+            pstmt.setInt(2, professor.getId());
+
+            pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
+    }
+
+    public void deleteProfessor(Integer id) {
+        String sql = "DELETE FROM PROFESSOR_TR01 WHERE IDPROFESSOR = ?";
+
+        try (Connection conn = dbRepository.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+
+            pstmt.execute();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

@@ -238,18 +238,26 @@ public class Main {
                     System.out.println("[*] informações do professor");
                     System.out.print("Digite o id do professor: ");
                     int idProfessor = sc.nextInt();
-                    Professor professor1 = professorService.retornaProfessor(professores, idProfessor);
-                    System.out.println("Nome: " + professor1.getNome() + "\n");
+                    professor = professorService.retornaProfessor(professores, idProfessor);
+                    if ( professor != null ) {
+                        System.out.println("Nome: " + professor.getNome() + "\n");
+                    } else {
+                        System.out.println("Professor não encontrado!");
+                    }
                     break;
                 case 2:
                     alunoService.printAluno(alunos);
                     System.out.println("Informe o id do aluno: ");
                     int id = sc.nextInt();
                     aluno = alunoService.findAlunoById(id);
-                    System.out.println("Nome do aluno: " + aluno.getNome());
-                    List<Exercicio> exerciciosAlunoList = exercicioService.retornaExerciciosAluno(id);
-                    exercicioService.printExercicio(exerciciosAlunoList);
-                    System.out.println();
+                    if ( aluno != null ) {
+                        System.out.println("Nome do aluno: " + aluno.getNome());
+                        List<Exercicio> exerciciosAlunoList = exercicioService.retornaExerciciosAluno(id);
+                        exercicioService.printExercicio(exerciciosAlunoList);
+                        System.out.println();
+                    } else {
+                        System.out.println("Aluno não encontrado!");
+                    }
                     break;
                 case 3:
                     System.out.println("[*] Menu anterior...");

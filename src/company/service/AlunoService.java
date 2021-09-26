@@ -44,7 +44,8 @@ public class AlunoService {
         System.out.println("\n******* Alunos Cadastrados *******");
         for (Aluno aluno : alunos) {
             System.out.println(aluno.getId() + ") Nome: " + 
-            aluno.getNome() + " - CPF: " + aluno.getCpf());
+            aluno.getNome() + " - CPF: " + aluno.getCpf() +
+            " - Professor: " + aluno.getProfessor().getNome());
         }
     }
 

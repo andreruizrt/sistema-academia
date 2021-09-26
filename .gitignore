@@ -12,3 +12,6 @@ buildNumber.properties
 
 # test files
 test/
+
+# build
+out/
